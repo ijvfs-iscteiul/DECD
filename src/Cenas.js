@@ -1,24 +1,39 @@
-const convertFile = () => {
+// const csv = require('csv-parser');
+import csv from 'csv-parser';
+import fs from 'fs';
+import { convertCSVToArray } from 'convert-csv-to-array';
 
-    const csv = require('csv-parser');
-const fs = require('fs');
+const convertFile = async () => {
+	console.log('Initing script');
+	debugger;
+	await fs.createReadStream('data.csv')
+		.pipe(streamedData => {
+			try {
+				debugger;
+				const pow = csv(streamedData);
+				debugger;
+				return pow;
+			} catch (error) {
+				debugger;
+				console.error(error);
+			}
+		})
+		.on('data', (row) => {
+			debugger;
+			console.log(row);
+		})
+		.on('end', () => {
+			debugger;
+			console.log('CSV file successfully processed');
+		});
+	debugger;
+	const formandosFile = {};
 
-fs.createReadStream('data.csv')
-  .pipe(csv())
-  .on('data', (row) => {
-    console.log(row);
-  })
-  .on('end', () => {
-    console.log('CSV file successfully processed');
-  });
+	/* const arrayofArrays = convertCSVToArray(data, {
+		type: 'array',
+		separator: ';', // use the separator you use in your csv (e.g. '\t', ',', ';' ...)
+	}); */
 
-    const { convertCSVToArray } = require('convert-csv-to-array');
-   
-   const formandosFile = {}
+};
 
-    const arrayofArrays = convertCSVToArray(data, {
-         type: 'array',
-        separator: ';', // use the separator you use in your csv (e.g. '\t', ',', ';' ...)
-    });
-
-}
+convertFile();
